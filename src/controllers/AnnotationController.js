@@ -3,10 +3,10 @@ const Annotations = require('../models/AnnotationData');
 
 module.exports = {
 
-    read(request, response){
-        const annotationList = Annotations.find();
+    async read(request, response){
+        const annotationList = await Annotations.find();
         
-
+        return response.json(annotationList);
 
     },
 
