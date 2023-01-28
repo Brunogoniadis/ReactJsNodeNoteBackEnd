@@ -1,4 +1,3 @@
-const { response } = require('express');
 const Annotations = require('../models/AnnotationData');
 
 module.exports = {
@@ -7,15 +6,24 @@ module.exports = {
         const annotationList = await Annotations.find();
         
         return response.json(annotationList);
-
     },
 
-    create(request, response){
+    async create(request, response){
         const { title, notes, priority } = request.body; 
 
-        console.log(title);
-        console.log(notes);
-        console.log(priority);
-    }
+        if(!notes || !title){
+            return response.status(400).json({ error: "Necessário um títilo/anotação"});
+        }
 
+        const annotationCreated = await Annotations.create({
+            title,
+            notes,
+            priority
+        })
+        return response.json(annotationCreated);
+    },
+
+    delete (request, response){
+        
+    }
 }
