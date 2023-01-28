@@ -24,13 +24,14 @@ module.exports = {
     },
 
     async delete (request, response){
+
         const { id } = request.params;
         const annotationDeleted = await Annotations.findByIdAndDelete({ _id : id })
 
         if(annotationDeleted){
             return response.json(annotationDeleted)
         }
-
         return response.status(401).json( {error: "Não foi encontrado registro para deletar"} );
+        
     }
 }
